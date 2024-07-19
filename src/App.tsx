@@ -1,7 +1,15 @@
-import './globals.css'
+import { Navbar } from "./components";
+import { Routes, Route } from "react-router-dom";
+// import './globals.css'
 const App = () => {
  return (
-    <div className="home-posts text-3xl font-bold underline text-red">app</div>
+  <>
+    <main className="flex h-screen">
+      <Routes>
+        <Route path="/" element={<Navbar />} />
+      </Routes>
+    </main>
+    </>
   );
 }
 
