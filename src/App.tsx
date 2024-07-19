@@ -1,7 +1,8 @@
+import './globals.css'
 const App = () => {
   return (
-    <div>
-      
+    <div className='text-red-500'>
+      500
     </div>
   )
 }
