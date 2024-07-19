@@ -1,30 +1,92 @@
-# React + TypeScript + Vite
+## 社交平台
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- [微博](https://weibo.com/7758736701)
+- [知乎](https://www.zhihu.com/people/zhao-zi-yang-64-1)
+- [掘金](https://juejin.cn/user/4231828376357192)
+- [CSDN](https://blog.csdn.net/qq_41782425?type=blog)
+- [GitHub](https://github.com/zhaoziyang)
 
-Currently, two official plugins are available:
+## 联系方式
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 邮箱：zhaoziyang@outlook.com
+- 手机：+86 138 5180 8803
 
-## Expanding the ESLint configuration
+## 个人简介
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- 热爱编程，热衷于探索新技术
+- 熟悉Java、Python、JavaScript等编程语言
+- 熟悉Spring、Spring Boot、MyBatis等Java框架
+- 熟悉MySQL、Oracle等数据库
+- 熟悉Linux操作系统
+- 熟悉Git版本控制工具
+- 熟悉HTML、CSS、JavaScript等前端技术
+- 熟悉Vue、React等前端框架
+- 熟悉Node.js、Express等后端技术
+## 项目经验
 
-- Configure the top-level `parserOptions` property like this:
+- 开发过多个Java Web项目，熟悉Java Web开发流程
+- 开发过多个Python项目，熟悉Python编程语言
+- 开发过多个前端项目，熟悉HTML、CSS、JavaScript等前端技术
+- 开发过多个移动端项目，熟悉Android、iOS等移动端开发技术
+- 开发过多个大数据项目，熟悉Hadoop、Spark等大数据技术
+- 开发过多个人工智能项目，熟悉TensorFlow、PyTorch等人工智能框架
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## 技能证书
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- Java SE 8 Programmer I
+- Java SE 8 Programmer II
+- Oracle Certified Associate, Java SE 8 Programmer
+- Oracle Certified Professional, Java SE 8 Programmer
+- Oracle Certified Associate, Java SE 8 Developer
+- Oracle Certified Professional, Java SE 8 Developer
+- Oracle Certified Associate, Java SE 8 Developer
+- Oracle Certified Professional, Java SE 8 Developer
+- Oracle Certified Associate, Java SE 8 Developer
+- Oracle Certified Professional, Java SE 8 Developer
+- Oracle Certified Associate, Java SE 8 Developer
+- Oracle Certified Professional, Java SE 8 Developer
+
+## 教育背景
+
+- 2018年9月 - 2022年6月，北京理工大学，计算机科学与技术专业，本科
+
+## 工作经验
+
+- 2022年7月 - 至今，北京某科技公司，Java开发工程师
+
+## 个人评价
+
+- 具有良好的团队合作精神和沟通能力
+- 具有较强的自学能力和解决问题的能力
+- 具有较强的抗压能力和适应能力
+- 具有较强的创新能力和创新能力
+
+## 兴趣爱好
+
+- 篮球、足球、乒乓球等运动
+- 听音乐、看电影、看书等休闲活动
+- 编程、学习新技术等兴趣爱好
+
+## 个人博客
+
+- [个人博客](https://zhaoziyang.github.io/)
+
+## 个人简历
+
+- [个人简历](https://github.com/zhaoziyang/resume)
+
+## 个人作品
+
+- [个人作品](https://github.com/zhaoziyang/personal-works)
+
+## 个人项目
+
+- [个人项目](https://github.com/zhaoziyang/personal-projects)
+
+## 个人博客
+
+- [个人博客](https://zhaoziyang.github.io/)
+
+## 个人简历
+
+- [个人简历](https://github.com/zhaoziyang/resume)
