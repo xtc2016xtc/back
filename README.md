@@ -1,91 +1,36 @@
-## 社交平台
+# 社交后台系统
 
-- [微博](https://weibo.com/7758736701)
-- [知乎](https://www.zhihu.com/people/zhao-zi-yang-64-1)
-- [掘金](https://juejin.cn/user/4231828376357192)
-- [CSDN](https://blog.csdn.net/qq_41782425?type=blog)
-- [GitHub](https://github.com/zhaoziyang)
+## 项目简介
+社交后台系统是一个基于React和tyscript的前后端分离项目，用于管理社交平台上的用户、帖子、评论等数据。该项目包括用户管理、帖子管理、评论管理等功能，旨在为社交平台提供高效、稳定的数据管理服务。
 
-## 联系方式
+## 技术栈
+- 后端: Appwrite
+- 前端：react + typescript + vite
 
+## 项目结构
+- src：前端代码
+- server：后端代码[开发中]
+- public：静态资源文件
 
+## 安装与运行
+1. 克隆项目到本地
+2. 进入项目目录，安装依赖
+   ```
+   npm install
+   ```
+3. 启动项目
+   ```
+   npm run dev
+   ```
+4. 访问 http://localhost:5173 即可查看项目运行效果
 
-## 个人简介
+## 功能模块
+- 用户管理：包括用户注册、登录、信息修改等功能。
+- 帖子管理：包括发帖、编辑、删除帖子等功能。
+- 评论管理：包括评论、回复评论、删除评论等功能。
 
-- 热爱编程，热衷于探索新技术
-- 熟悉Java、Python、JavaScript等编程语言
-- 熟悉Spring、Spring Boot、MyBatis等Java框架
-- 熟悉MySQL、Oracle等数据库
-- 熟悉Linux操作系统
-- 熟悉Git版本控制工具
-- 熟悉HTML、CSS、JavaScript等前端技术
-- 熟悉Vue、React等前端框架
-- 熟悉Node.js、Express等后端技术
-## 项目经验
+## 贡献者
+- [熊](#)
 
-- 开发过多个Java Web项目，熟悉Java Web开发流程
-- 开发过多个Python项目，熟悉Python编程语言
-- 开发过多个前端项目，熟悉HTML、CSS、JavaScript等前端技术
-- 开发过多个移动端项目，熟悉Android、iOS等移动端开发技术
-- 开发过多个大数据项目，熟悉Hadoop、Spark等大数据技术
-- 开发过多个人工智能项目，熟悉TensorFlow、PyTorch等人工智能框架
-
-## 技能证书
-
-- Java SE 8 Programmer I
-- Java SE 8 Programmer II
-- Oracle Certified Associate, Java SE 8 Programmer
-- Oracle Certified Professional, Java SE 8 Programmer
-- Oracle Certified Associate, Java SE 8 Developer
-- Oracle Certified Professional, Java SE 8 Developer
-- Oracle Certified Associate, Java SE 8 Developer
-- Oracle Certified Professional, Java SE 8 Developer
-- Oracle Certified Associate, Java SE 8 Developer
-- Oracle Certified Professional, Java SE 8 Developer
-- Oracle Certified Associate, Java SE 8 Developer
-- Oracle Certified Professional, Java SE 8 Developer
-
-## 教育背景
-
-- 2018年9月 - 2022年6月，北京理工大学，计算机科学与技术专业，本科
-
-## 工作经验
-
-- 2022年7月 - 至今，北京某科技公司，Java开发工程师
-
-## 个人评价
-
-- 具有良好的团队合作精神和沟通能力
-- 具有较强的自学能力和解决问题的能力
-- 具有较强的抗压能力和适应能力
-- 具有较强的创新能力和创新能力
-
-## 兴趣爱好
-
-- 篮球、足球、乒乓球等运动
-- 听音乐、看电影、看书等休闲活动
-- 编程、学习新技术等兴趣爱好
-
-## 个人博客
-
-- [个人博客](https://zhaoziyang.github.io/)
-
-## 个人简历
-
-- [个人简历](https://github.com/zhaoziyang/resume)
-
-## 个人作品
-
-- [个人作品](https://github.com/zhaoziyang/personal-works)
-
-## 个人项目
-
-- [个人项目](https://github.com/zhaoziyang/personal-projects)
-
-## 个人博客
-
-- [个人博客](https://zhaoziyang.github.io/)
-
-## 个人简历
-
-- [个人简历](https://github.com/zhaoziyang/resume)
+## 许可证
+本项目采用 MIT 许可证。
