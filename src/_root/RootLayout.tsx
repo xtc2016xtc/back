@@ -1,9 +1,9 @@
-import React from 'react'
+import { Button } from "@/components/ui/button"
 
 const RootLayout = () => {
   return (
     <div>
-      Rootauth
+      <Button>Button</Button>
     </div>
   )
 }
