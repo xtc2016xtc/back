@@ -7,7 +7,7 @@ export const appwriteConfig = {
 
 export const client = new Client();
 
-
+//57.45
 client.setProject(appwriteConfig.projectId);
 client.setEndpoint(appwriteConfig.url);
 
