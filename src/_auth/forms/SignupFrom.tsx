@@ -129,3 +129,20 @@ const SignupFrom = () => {
 }
 
 export default SignupFrom
+
+
+/* 
+  注册功能：
+     1. 用户名、邮箱、密码输入框
+     2. 注册按钮
+  主要事项：
+    1.多次注册会导致第三方库被屏蔽
+      报错信息:'Third-party cookie will be blocked in future Microsoft Edge versions as part of unpartitioned third-party cookie deprecation.'
+      解决方案：
+          1.更新浏览器 
+          2.在注册时，不使用第三方库，使用原生js实现注册功能[不推荐]
+          3.检查浏览器设置问题 [推荐]
+    已测试：
+      1.用户注册完成,如再次注册需要30秒的冷缺时间,还是会出现这个问题
+
+*/
