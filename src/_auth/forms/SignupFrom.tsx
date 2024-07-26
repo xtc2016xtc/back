@@ -20,7 +20,7 @@ import { useToast } from "@/components/ui/use-toast"
 
 
 
-//54.48. Form validation with zod and react-hook-form
+// Form validation with zod and react-hook-form
 const SignupFrom = () => {
   const { toast } = useToast()
   const isLoading = false
@@ -37,7 +37,7 @@ const SignupFrom = () => {
 
   // const { mutateAsync: createUserAccount, isLoading: isCreatingAccount } = useCreateUserAccount();
 
-  // 1.27.36 Define a submit handler.
+  // 1.34.51 Define a submit handler.
  async function onSubmit(values: z.infer<typeof SignupValidation>) {
     // const newUser = await createUserAccount(values)
     const newUser = await createUserAccount(values)
