@@ -16,7 +16,7 @@ import { logoImg } from "@/utils"
 import Loader from "@/components/shared/Loader"
 import { useToast } from "@/components/ui/use-toast"
 import { Link, useNavigate } from "react-router-dom";
-import { useCreateUserAccount, useSignInAccount } from "@/lib/react-query/queriesAndMutations"
+import { useCreateUserAccount, useSignInAccount } from "@/lib/react-query/queries"
 import { useUserContext } from "@/context/AuthContext"
 
 
