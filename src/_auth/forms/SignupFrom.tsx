@@ -15,16 +15,19 @@ import { SignupValidation } from "@/lib/validation"
 import { logoImg } from "@/utils"
 import Loader from "@/components/shared/Loader"
 import { Link } from "react-router-dom"
-import { createUserAccount } from "@/lib/appwrite/api"
 import { useToast } from "@/components/ui/use-toast"
+import { useCreateUserAccount, useSignInAccount } from "@/lib/react-query/queriesAndMutations"
 
 
 
 // Form validation with zod and react-hook-form
 const SignupFrom = () => {
   const { toast } = useToast()
-  const isLoading = false
   // 1. Define your form.
+
+  const { mutateAsync: createUserAccount, isLoading: isCreatingUser} = useCreateUserAccount()
+  const { mutateAsync: signInAccount, isLoading: isSigningInUser } = useSignInAccount();
+
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
     defaultValues: {
@@ -48,6 +51,8 @@ const SignupFrom = () => {
       return;
     }
 
+    const session = 1
+    console.log(session)
     // const session = await signInAccount({
     //   email: user.email,
     //   password: user.password,
@@ -126,7 +131,7 @@ const SignupFrom = () => {
           />
           {/* 注册加载 */}
         <Button type="submit" className="shad-button_primary">
-          {isLoading ? (
+          {isCreatingUser ? (
             <div className="flex-center gap-2">
               <Loader />  Loading...
             </div>
