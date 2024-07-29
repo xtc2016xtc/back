@@ -151,13 +151,15 @@ const SignupFrom = () => {
             )}
           />
           {/* 注册加载 */}
-        <Button type="submit" className="shad-button_primary">
-          {isCreatingAccount ? (
-            <div className="flex-center gap-2">
-              <Loader />  Loading...
-            </div>
-          ):"Sign Up"}
-        </Button>
+          <Button type="submit" className="shad-button_primary">
+            {isCreatingAccount || isSigningInUser || isUserLoading ? (
+              <div className="flex-center gap-2">
+                <Loader /> Loading...
+              </div>
+            ) : (
+              "Sign Up"
+            )}
+          </Button>
 
         <p className="text-small-regular text-light-2 text-center mt-2"> 
           Already have an account? <Link to="/sign-in" className="text-primary-500 text-small-semibold ml-1">Log in</Link>
