@@ -1,4 +1,5 @@
 import React from 'react';
+// console.log(React);
 import ReactDom from 'react-dom/client';
 import App from './App';
 // import './globals.css';

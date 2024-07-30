@@ -10,3 +10,6 @@ export const logoImg = logo;
 import loader from '/assets/icons/loader.svg'
 export const loaderIcon = loader;
 
+//退出登录lcon
+import logout from '/assets/icons/logout.svg'
+export const logoutIcon = logout;
