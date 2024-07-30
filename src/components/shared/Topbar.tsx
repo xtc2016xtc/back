@@ -1,8 +1,19 @@
 import { logoImg, logoutIcon } from '@/utils'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '../ui/button'
+import { useSignOutAccount } from '@/lib/react-query/queries';
+import { useEffect } from 'react';
 
 const Topbar = () => {
+  const { mutate: signOut, isSuccess } = useSignOutAccount();
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    if (isSuccess) navigate(0);
+  }, [isSuccess, navigate]);
+
+
   return (
    <section className='topbar'> 
     <div className='flex-between py-4 px-5'> 
@@ -14,10 +25,10 @@ const Topbar = () => {
           height={325}
           />
       </Link>
-
+      {/* 2.20.15 */}
       <div className='flex gap-4'>
-        <Button> 
-            <img src={logoutIcon} alt="" />
+        <Button variant="ghost" className='shad-button_ghost'  onClick={() => signOut()}> 
+            <img src={logoutIcon} alt="logoutIcon" />
         </Button>
       </div>
     </div>
