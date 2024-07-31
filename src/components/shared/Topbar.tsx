@@ -25,11 +25,12 @@ const Topbar = () => {
           height={325}
           />
       </Link>
-      {/* 2.20.15 */}
+      {/* 2.24.15 */}
       <div className='flex gap-4'>
         <Button variant="ghost" className='shad-button_ghost'  onClick={() => signOut()}> 
             <img src={logoutIcon} alt="logoutIcon" />
         </Button>
+        <Link to="/" className='text-red font-inter'>Profile</Link>
       </div>
     </div>
    </section>
