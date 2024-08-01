@@ -15,11 +15,6 @@ const LeftSidebar = () => {
           height={36}
           />
       </Link>
-
-      <Link 
-        to={``}
-      >
-      </Link>
       </div>
     </nav>
   )
