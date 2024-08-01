@@ -13,3 +13,7 @@ export const loaderIcon = loader;
 //退出登录lcon
 import logout from '/assets/icons/logout.svg'
 export const logoutIcon = logout;
+
+//用户头像
+import user from '/assets/images/profile.png'
+export const userImg = user;
