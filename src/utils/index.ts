@@ -17,3 +17,23 @@ export const logoutIcon = logout;
 //用户头像
 import user from '/assets/images/profile.png'
 export const userImg = user;
+
+//homeICon
+import home from '/assets/icons/home.svg'
+export const homeIcon = home;
+
+// wallpaperICON
+import wallpaper from '/assets/icons/wallpaper.svg'
+export const wallpaperIcon = wallpaper;
+
+// peopleICON
+import people from '/assets/icons/people.svg'
+export const peopleIcon = people;
+
+//bookmarkICON
+import bookmark from '/assets/icons/bookmark.svg'
+export const bookmarkIcon = bookmark;
+
+//galleryaddICON
+import galleryadd from '/assets/icons/gallery-add.svg'
+export const galleryaddIcon = galleryadd;
