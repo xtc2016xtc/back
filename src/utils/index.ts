@@ -37,3 +37,7 @@ export const bookmarkIcon = bookmark;
 //galleryaddICON
 import galleryadd from '/assets/icons/gallery-add.svg'
 export const galleryaddIcon = galleryadd;
+
+//增加addpoatICON
+import addpost from '/assets/icons/add-post.svg'
+export const addpostIcon = addpost;
