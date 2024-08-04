@@ -1,7 +1,7 @@
 const FileUPloader = () => {
   return (
     <div>
-      FileUPloader
+      
     </div>
   )
 }
