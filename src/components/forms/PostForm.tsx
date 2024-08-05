@@ -69,7 +69,7 @@ const PostForm = () => {
           name="location"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">Add photos</FormLabel>
+              <FormLabel className="shad-form_label">Add location</FormLabel>
               <FormControl>
                 <Input type="text" className="shad-input"/>
               </FormControl>

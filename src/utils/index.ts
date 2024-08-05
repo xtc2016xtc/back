@@ -41,3 +41,7 @@ export const galleryaddIcon = galleryadd;
 //增加addpoatICON
 import addpost from '/assets/icons/add-post.svg'
 export const addpostIcon = addpost;
+
+//fill上传ICON
+import fileupload from '/assets/icons/file-upload.svg'
+export const fileuploadIcon = fileupload;
