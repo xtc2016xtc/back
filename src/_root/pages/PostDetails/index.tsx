@@ -1,7 +1,7 @@
-
-
 const PostDetails = () => {
-	return <></>
-};
+  return (
+    <div>PostDetails</div>
+  )
+}
 
-export default PostDetails;
+export default PostDetails
