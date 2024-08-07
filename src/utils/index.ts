@@ -45,3 +45,27 @@ export const addpostIcon = addpost;
 //fill上传ICON
 import fileupload from '/assets/icons/file-upload.svg'
 export const fileuploadIcon = fileupload;
+
+//默认头像
+import defaultAvatar from '/assets/icons/profile-placeholder.svg'
+export const defaultAvatarIcon = defaultAvatar;
+
+//deitlIcon
+import edit from '/assets/icons/edit.svg'
+export const editIcon = edit;
+
+//likedIcon
+import liked from '/assets/icons/liked.svg'
+export const likedIcon = liked;
+
+//likeIcon
+import like from '/assets/icons/like.svg'
+export const likeIcon = like;
+
+//savedIcon
+import saved from '/assets/icons/saved.svg'
+export const savedIcon = saved;
+
+//saveIcon
+import save from '/assets/icons/save.svg'
+export const saveIcon = save;
