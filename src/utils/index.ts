@@ -69,3 +69,11 @@ export const savedIcon = saved;
 //saveIcon
 import save from '/assets/icons/save.svg'
 export const saveIcon = save;
+
+//backIcon
+import back from '/assets/icons/back.svg'
+export const backIcon = back;
+
+//deleteIcon
+import deleteIcon from '/assets/icons/delete.svg'
+export const deleteIconIcon = deleteIcon;

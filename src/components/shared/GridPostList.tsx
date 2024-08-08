@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import { useUserContext } from "@/context/AuthContext";
 import PostStats from "./PostStats";
+import { defaultAvatarIcon } from "@/utils";
 
 type GridPostListProps = {
   posts: Models.Document[];
@@ -35,7 +36,7 @@ const GridPostList = ({
                 <img
                   src={
                     post.creator.imageUrl ||
-                    "/assets/icons/profile-placeholder.svg"
+                    defaultAvatarIcon
                   }
                   alt="creator"
                   className="w-8 h-8 rounded-full"
