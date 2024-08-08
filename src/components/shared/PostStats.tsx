@@ -28,11 +28,20 @@ const PostStats = ({ post, userId }: PostStatsProps) => {
   const { mutate: deleteSavePost } = useDeleteSavedPost();
 
   const { data: currentUser } = useGetCurrentUser();
-
+  //检查帖子是否被喜欢
   const savedPostRecord = currentUser?.save.find(
     (record: Models.Document) => record.post.$id === post.$id
   );
+  /* 
+  ·示例:[
+    如果有保存的post记录，假设Saved的对象为true,调佣一个感叹号保存后记录，返回false,再调佣一次.如果用另外一个true重复这个过程，测试字符串可能会返回false，因为一旦否定它，会得到一个假值，然后一个假值是真的，所以在假值这样做，返回一个假，因为首先转换为真，然后为假，所以返回假。
+    { Saved: true } => !savedPostRecord => ！false = true
+     'TEST' => !'test' => ！false = true
+    ]
+  */
+    
 
+  //保存帖子状态
   useEffect(() => {
     setIsSaved(!!savedPostRecord);
   }, [currentUser, savedPostRecord]);

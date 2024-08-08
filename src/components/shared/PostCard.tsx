@@ -77,7 +77,7 @@ const PostCard = ({ post }: PostCardProps) => {
           className="post-card_img"
         />
       </Link>
-
+      {/* 点赞,收藏 */}
       <PostStats post={post} userId={user.id} />
     </div>
   );

@@ -1,7 +1,9 @@
-
+import React from 'react'
 
 const UpdateProfile = () => {
-	return <></>
-};
+  return (
+    <div>UpdateProfile</div>
+  )
+}
 
-export default UpdateProfile;
+export default UpdateProfile

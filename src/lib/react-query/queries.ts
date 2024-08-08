@@ -5,7 +5,7 @@ import {
   useQueryClient,
   useInfiniteQuery,
 } from "@tanstack/react-query";
-import { createUserAccount,createPost,updatePost,signInAccount, signOutAccount, getRecentPosts, likePost, savePost, deleteSavedPost,getCurrentUser } from "../appwrite/api";
+import { createUserAccount,createPost,updatePost,signInAccount, signOutAccount, getRecentPosts, likePost, savePost, deleteSavedPost,getCurrentUser, getPostById, deletePost, getUserPosts } from "../appwrite/api";
 import { QUERY_KEYS } from "./queryKeys";
 
 console.log(useQuery, useMutation, useQueryClient, useInfiniteQuery);
@@ -124,10 +124,39 @@ export const useDeleteSavedPost = () => {
   });
 };
 
-
+//传递查询的key,获取当前用户和查询数据
 export const useGetCurrentUser = () => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_CURRENT_USER],
     queryFn: getCurrentUser,
+  });
+};
+
+export const useGetPostById = (postId?: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_POST_BY_ID, postId],
+    queryFn: () => getPostById(postId),
+    enabled: !!postId,
+  });
+};
+
+export const useDeletePost = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ postId, imageId }: { postId?: string; imageId: string }) =>
+      deletePost(postId, imageId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
+      });
+    },
+  });
+};
+
+export const useGetUserPosts = (userId?: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_USER_POSTS, userId],
+    queryFn: () => getUserPosts(userId),
+    enabled: !!userId,
   });
 };
