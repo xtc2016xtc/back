@@ -144,7 +144,7 @@ const PostDetails = () => {
         <hr className="border w-full border-dark-4/80" />
 
         <h3 className="body-bold md:h3-bold w-full my-10">
-          More Related Posts
+          更多
         </h3>
         {isUserPostLoading || !relatedPosts ? (
           <Loader />
