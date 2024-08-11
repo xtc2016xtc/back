@@ -13,7 +13,8 @@ import { Textarea } from "../ui/textarea";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Loader from "../shared/Loader";
-import FileUploader from "../shared/FileUploader";
+// import FileUploader from "../shared/FileUploader";
+import FileUploader from '@/components/shared/FileUploader'
 
 // 定义表单属性类型
 type PostFormProps = {
