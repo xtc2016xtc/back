@@ -10,10 +10,10 @@ import { useUserContext } from "@/context/AuthContext";
 import { useCreatePost, useUpdatePost } from "@/lib/react-query/queries";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Textarea } from "../ui/textarea";
-import FileUploader from "../shared/FileUploader";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Loader from "../shared/Loader";
+import FileUploader from "../shared/FileUploader";
 
 // 定义表单属性类型
 type PostFormProps = {
