@@ -7,17 +7,22 @@ import { Input } from "@/components/ui/input";
 import { filterIcon, searchIcon } from "@/utils";
 import useDebounce from "@/hooks/useDebounce";
 
+// 定义搜索结果组件的props类型
 export type SearchResultProps = {
   isSearchFetching: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   searchedPosts: any;
 };
 
+// 搜索结果组件
 const SearchResults = ({ isSearchFetching, searchedPosts }: SearchResultProps) => {
+  // 如果正在搜索，则显示加载器
   if (isSearchFetching) {
     return <Loader />;
+  // 如果搜索结果不为空，则显示搜索结果
   } else if (searchedPosts && searchedPosts.documents.length > 0) {
     return <GridPostList posts={searchedPosts.documents} />;
+  // 否则显示没有找到结果
   } else {
     return (
       <p className="text-light-4 mt-10 text-center w-full">No results found</p>
@@ -25,20 +30,27 @@ const SearchResults = ({ isSearchFetching, searchedPosts }: SearchResultProps) =
   }
 };
 
+// 探索组件
 const Explore = () => {
+  // 使用useInView钩子获取ref和inView状态
   const { ref, inView } = useInView();
+  // 使用useGetPosts钩子获取帖子数据
   const { data: posts, fetchNextPage, hasNextPage } = useGetPosts();
 
+  // 定义搜索值和防抖搜索值的状态
   const [searchValue, setSearchValue] = useState("");
   const debouncedSearch = useDebounce(searchValue, 500);
+  // 使用useSearchPosts钩子获取搜索结果
   const { data: searchedPosts, isFetching: isSearchFetching } = useSearchPosts(debouncedSearch);
 
+  // 当inView为true且没有搜索值时，调用fetchNextPage函数
   useEffect(() => {
     if (inView && !searchValue) {
       fetchNextPage();
     }
   }, [fetchNextPage, inView, searchValue]);
 
+  // 如果没有帖子数据，则显示加载器
   if (!posts)
     return (
       <div className="flex-center w-full h-full">
@@ -46,6 +58,7 @@ const Explore = () => {
       </div>
     );
 
+  // 定义是否显示搜索结果和是否显示帖子的状态
   const shouldShowSearchResults = searchValue !== "";
   const shouldShowPosts = !shouldShowSearchResults && 
     posts.pages.every((item) => item.documents.length === 0);

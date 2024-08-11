@@ -1,8 +1,11 @@
 import { INewPost, INewUser, IUpdatePost } from "@/types";
 import { ID, Query } from "appwrite";
 import { account, appwriteConfig, avatars, databases, storage } from "./config";
+
+// 创建用户账户
 export async function createUserAccount(user:INewUser){
   try {
+    // 创建新账户
     const newAccount = await account.create(
       ID.unique(),
       user.email,
@@ -11,8 +14,10 @@ export async function createUserAccount(user:INewUser){
     )
     if(!newAccount) throw new Error("Error creating account")
 
+      // 获取头像URL
       const avatarUrl = avatars.getInitials(user.name)
 
+      // 保存用户信息到数据库
       const newUser = await saveUserToDB({
         accountId: newAccount.$id,
         name: newAccount.name,
@@ -29,6 +34,7 @@ export async function createUserAccount(user:INewUser){
   }
 }
 
+// 保存用户信息到数据库
 export async function saveUserToDB(user:{
   accountId: string;
   email: string;
@@ -36,7 +42,9 @@ export async function saveUserToDB(user:{
   imageUrl: URL;
   username?: string;
 }){
+
   try {
+    // 创建新文档
     const newUser = await databases.createDocument(
       appwriteConfig.databaseId,
       appwriteConfig.userCollectionId,
@@ -50,8 +58,10 @@ export async function saveUserToDB(user:{
   }
 }
 
+// 用户登录
 export async function signInAccount(user: { email: string; password: string }) {
   try {
+    // 创建邮箱会话
     const session = await account.createEmailSession(user.email, user.password);
 
     return session;
@@ -60,6 +70,7 @@ export async function signInAccount(user: { email: string; password: string }) {
   }
 }
 
+// 获取当前账户信息
 export async function getAccount() {
   try {
     const currentAccount = await account.get();
@@ -70,12 +81,14 @@ export async function getAccount() {
   }
 }
 
+// 获取当前用户信息
 export async function getCurrentUser() {
   try {
     const currentAccount = await getAccount();
 
     if (!currentAccount) throw Error;
 
+    // 根据账户ID查询用户信息
     const currentUser = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.userCollectionId,
@@ -91,8 +104,10 @@ export async function getCurrentUser() {
   }
 }
 
+// 用户登出
 export async function signOutAccount() {
   try {
+    // 删除当前会话
     const session = await account.deleteSession("current");
 
     return session;
@@ -101,24 +116,25 @@ export async function signOutAccount() {
   }
 }
 
+// 创建帖子
 export async function createPost(post: INewPost) {
   try {
-    // Upload file to appwrite storage
+    // 上传文件到Appwrite存储
     const uploadedFile = await uploadFile(post.file[0]);
 
     if (!uploadedFile) throw Error;
 
-    // Get file url
+    // 获取文件预览URL
     const fileUrl = getFilePreview(uploadedFile.$id);
     if (!fileUrl) {
       await deleteFile(uploadedFile.$id);
       throw Error;
     }
 
-    // Convert tags into array
+    // 将标签转换为数组
     const tags = post.tags?.replace(/ /g, "").split(",") || [];
 
-    // Create post
+    // 创建帖子
     const newPost = await databases.createDocument(
       appwriteConfig.databaseId,
       appwriteConfig.postCollectionId,
@@ -144,8 +160,10 @@ export async function createPost(post: INewPost) {
   }
 }
 
+// 上传文件
 export async function uploadFile(file: File) {
   try {
+    // 创建新文件
     const uploadedFile = await storage.createFile(
       appwriteConfig.storageId,
       ID.unique(),
@@ -158,8 +176,10 @@ export async function uploadFile(file: File) {
   }
 }
 
+// 获取文件预览
 export function getFilePreview(fileId: string) {
   try {
+    // 获取文件预览URL
     const fileUrl = storage.getFilePreview(
       appwriteConfig.storageId,
       fileId,
@@ -177,8 +197,10 @@ export function getFilePreview(fileId: string) {
   }
 }
 
+// 删除文件
 export async function deleteFile(fileId: string) {
   try {
+    // 删除文件
     await storage.deleteFile(appwriteConfig.storageId, fileId);
 
     return { status: "ok" };
@@ -186,7 +208,8 @@ export async function deleteFile(fileId: string) {
     console.log(error);
   }
 }
-//更新
+
+// 更新帖子
 export async function updatePost(post: IUpdatePost) {
   const hasFileToUpdate = post.file.length > 0;
 
@@ -197,11 +220,11 @@ export async function updatePost(post: IUpdatePost) {
     };
 
     if (hasFileToUpdate) {
-      // Upload new file to appwrite storage
+      // 上传新文件到Appwrite存储
       const uploadedFile = await uploadFile(post.file[0]);
       if (!uploadedFile) throw Error;
 
-      // Get new file url
+      // 获取新文件预览URL
       const fileUrl = getFilePreview(uploadedFile.$id);
       if (!fileUrl) {
         await deleteFile(uploadedFile.$id);
@@ -211,10 +234,10 @@ export async function updatePost(post: IUpdatePost) {
       image = { ...image, imageUrl: fileUrl, imageId: uploadedFile.$id };
     }
 
-    // Convert tags into array
+    // 将标签转换为数组
     const tags = post.tags?.replace(/ /g, "").split(",") || [];
 
-    //  Update post
+    // 更新帖子
     const updatedPost = await databases.updateDocument(
       appwriteConfig.databaseId,
       appwriteConfig.postCollectionId,
@@ -228,18 +251,18 @@ export async function updatePost(post: IUpdatePost) {
       }
     );
 
-    // Failed to update
+    // 更新失败
     if (!updatedPost) {
-      // Delete new file that has been recently uploaded
+      // 删除新上传的文件
       if (hasFileToUpdate) {
         await deleteFile(image.imageId);
       }
 
-      // If no new file uploaded, just throw error
+      // 如果没有新文件上传，抛出错误
       throw Error;
     }
 
-    // Safely delete old file after successful update
+    // 更新成功后，安全删除旧文件
     if (hasFileToUpdate) {
       await deleteFile(post.imageId);
     }
@@ -250,8 +273,10 @@ export async function updatePost(post: IUpdatePost) {
   }
 }
 
+// 获取最近帖子
 export async function getRecentPosts() {
   try {
+    // 查询最近帖子
     const posts = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.postCollectionId,
@@ -266,8 +291,10 @@ export async function getRecentPosts() {
   }
 }
 
+// 点赞帖子
 export async function likePost(postId: string, likesArray: string[]) {
   try {
+    // 更新帖子点赞信息
     const updatedPost = await databases.updateDocument(
       appwriteConfig.databaseId,
       appwriteConfig.postCollectionId,
@@ -285,8 +312,10 @@ export async function likePost(postId: string, likesArray: string[]) {
   }
 }
 
+// 保存帖子
 export async function savePost(userId: string, postId: string) {
   try {
+    // 创建新文档保存帖子
     const updatedPost = await databases.createDocument(
       appwriteConfig.databaseId,
       appwriteConfig.savesCollectionId,
@@ -305,8 +334,10 @@ export async function savePost(userId: string, postId: string) {
   }
 }
 
+// 删除保存的帖子
 export async function deleteSavedPost(savedRecordId: string) {
   try {
+    // 删除保存的帖子
     const statusCode = await databases.deleteDocument(
       appwriteConfig.databaseId,
       appwriteConfig.savesCollectionId,
@@ -321,11 +352,12 @@ export async function deleteSavedPost(savedRecordId: string) {
   }
 }
 
-//详细信息
+// 获取帖子详细信息
 export async function getPostById(postId?: string) {
   if (!postId) throw Error;
 
   try {
+    // 根据帖子ID查询帖子信息
     const post = await databases.getDocument(
       appwriteConfig.databaseId,
       appwriteConfig.postCollectionId,
@@ -340,10 +372,12 @@ export async function getPostById(postId?: string) {
   }
 }
 
+// 删除帖子
 export async function deletePost(postId?: string, imageId?: string) {
   if (!postId || !imageId) return;
 
   try {
+    // 删除帖子
     const statusCode = await databases.deleteDocument(
       appwriteConfig.databaseId,
       appwriteConfig.postCollectionId,
@@ -352,6 +386,7 @@ export async function deletePost(postId?: string, imageId?: string) {
 
     if (!statusCode) throw Error;
 
+    // 删除帖子对应的文件
     await deleteFile(imageId);
 
     return { status: "Ok" };
@@ -360,10 +395,12 @@ export async function deletePost(postId?: string, imageId?: string) {
   }
 }
 
+// 获取用户帖子
 export async function getUserPosts(userId?: string) {
   if (!userId) return;
 
   try {
+    // 根据用户ID查询用户帖子
     const post = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.postCollectionId,
@@ -377,8 +414,11 @@ export async function getUserPosts(userId?: string) {
     console.log(error);
   }
 }
+
+// 搜索帖子
 export async function searchPosts(searchTerm: string) {
   try {
+    // 根据搜索词查询帖子
     const posts = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.postCollectionId,
@@ -393,6 +433,7 @@ export async function searchPosts(searchTerm: string) {
   }
 }
 
+// 获取无限帖子
 export async function getInfinitePosts({ pageParam }: { pageParam: number }) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const queries: any[] = [Query.orderDesc("$updatedAt"), Query.limit(9)];
@@ -402,6 +443,7 @@ export async function getInfinitePosts({ pageParam }: { pageParam: number }) {
   }
 
   try {
+    // 查询无限帖子
     const posts = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.postCollectionId,

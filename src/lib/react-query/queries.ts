@@ -8,14 +8,17 @@ import {
 import { createUserAccount,createPost,updatePost,signInAccount, signOutAccount, getRecentPosts, likePost, savePost, deleteSavedPost,getCurrentUser, getPostById, deletePost, getUserPosts, getInfinitePosts, searchPosts } from "../appwrite/api";
 import { QUERY_KEYS } from "./queryKeys";
 
+// 打印useQuery, useMutation, useQueryClient, useInfiniteQuery
 console.log(useQuery, useMutation, useQueryClient, useInfiniteQuery);
 
+// 创建用户账户
 export const useCreateUserAccount = () => {
   return useMutation({
     mutationFn: (user: INewUser) => createUserAccount(user),
   });
 };
 
+// 用户登录
 export const useSignInAccount = () => {
   return useMutation({
     mutationFn: (user: { email: string; password: string }) =>
@@ -23,12 +26,14 @@ export const useSignInAccount = () => {
   });
 };
 
+// 用户登出
 export const useSignOutAccount = () => {
   return useMutation({
     mutationFn: signOutAccount,
   });
 };
 
+// 创建帖子
 export const useCreatePost = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -41,6 +46,7 @@ export const useCreatePost = () => {
   });
 };
 
+// 更新帖子
 export const useUpdatePost = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -53,6 +59,7 @@ export const useUpdatePost = () => {
   });
 };
 
+// 获取最新帖子
 export const useGetRecentPosts = () => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
@@ -60,6 +67,7 @@ export const useGetRecentPosts = () => {
   });
 };
 
+// 点赞帖子
 export const useLikePost = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -87,6 +95,7 @@ export const useLikePost = () => {
   });
 };
 
+// 收藏帖子
 export const useSavePost = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -106,6 +115,7 @@ export const useSavePost = () => {
   });
 };
 
+// 删除收藏的帖子
 export const useDeleteSavedPost = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -124,7 +134,7 @@ export const useDeleteSavedPost = () => {
   });
 };
 
-//传递查询的key,获取当前用户和查询数据
+// 获取当前用户
 export const useGetCurrentUser = () => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_CURRENT_USER],
@@ -132,6 +142,7 @@ export const useGetCurrentUser = () => {
   });
 };
 
+// 根据id获取帖子
 export const useGetPostById = (postId?: string) => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_POST_BY_ID, postId],
@@ -140,6 +151,7 @@ export const useGetPostById = (postId?: string) => {
   });
 };
 
+// 删除帖子
 export const useDeletePost = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -153,6 +165,7 @@ export const useDeletePost = () => {
   });
 };
 
+// 获取用户帖子
 export const useGetUserPosts = (userId?: string) => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_USER_POSTS, userId],
@@ -161,6 +174,7 @@ export const useGetUserPosts = (userId?: string) => {
   });
 };
 
+// 获取帖子
 export const useGetPosts = () => {
   return useInfiniteQuery({
     queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
@@ -168,18 +182,19 @@ export const useGetPosts = () => {
     queryFn: getInfinitePosts as any,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getNextPageParam: (lastPage: any) => {
-      // If there's no data, there are no more pages.
+      // 如果没有数据，就没有更多页面。
       if (lastPage && lastPage.documents.length === 0) {
         return null;
       }
 
-      // Use the $id of the last document as the cursor.
+      // 使用最后一个文档的$id作为游标。
       const lastId = lastPage.documents[lastPage.documents.length - 1].$id;
       return lastId;
     },
   });
 };
 
+// 搜索帖子
 export const useSearchPosts = (searchTerm: string) => {
   return useQuery({
     queryKey: [QUERY_KEYS.SEARCH_POSTS, searchTerm],
