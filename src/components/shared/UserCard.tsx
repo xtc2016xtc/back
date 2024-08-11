@@ -40,5 +40,5 @@ const UserCard = ({ user }: UserCardProps) => {
   );
 };
 
-// 导出UserCard组件
+
 export default UserCard;
