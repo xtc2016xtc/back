@@ -77,3 +77,11 @@ export const backIcon = back;
 //deleteIcon
 import deleteIcon from '/assets/icons/delete.svg'
 export const deleteIconIcon = deleteIcon;
+
+//SearchIcon
+import search from '/assets/icons/search.svg'
+export const searchIcon = search;
+
+//filterIcon
+import filter from '/assets/icons/filter.svg'
+export const filterIcon = filter;
