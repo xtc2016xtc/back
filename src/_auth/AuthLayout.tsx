@@ -7,7 +7,7 @@ const AuthLayout = () => {
     <>
       {isAuthenticated ? (
         <Navigate to="/" />
-      ):(
+      ):( //如果用户已认证，则跳转到首页
         <>
           <section className="flex flex-1 justify-center items-center flex-col py-10">
             <Outlet /> {/* 子路由组件 */}

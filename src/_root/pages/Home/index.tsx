@@ -10,17 +10,20 @@ import UserCard from "@/components/shared/UserCard";
 const Home = () => {
   // const { toast } = useToast();
 
+  // 获取最近发布的帖子
   const {
     data: posts,
     isLoading: isPostLoading,
     isError: isErrorPosts,
   } = useGetRecentPosts();
+  // 获取用户
   const {
     data: creators,
     isLoading: isUserLoading,
     isError: isErrorCreators,
   } = useGetUsers(10);
 
+  // 如果获取帖子或用户失败，则显示错误信息
   if (isErrorPosts || isErrorCreators) {
     return (
       <div className="flex flex-1">

@@ -13,14 +13,18 @@ import { SigninValidation } from "@/lib/validation";
 import { useSignInAccount } from "@/lib/react-query/queries"
 import { useUserContext } from "@/context/AuthContext";
 
+// 定义SigninForm组件
 const SigninForm = () => {
+  // 使用useToast钩子获取toast方法
   const { toast } = useToast();
+  // 使用useNavigate钩子获取navigate方法
   const navigate = useNavigate();
+  // 使用useUserContext钩子获取checkAuthUser和isUserLoading方法
   const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
-
-  // Query2.13.45
+  // 使用useSignInAccount钩子获取signInAccount和isLoading方法
   const { mutateAsync: signInAccount, isLoading } = useSignInAccount();
 
+  // 使用useForm钩子获取form对象
   const form = useForm<z.infer<typeof SigninValidation>>({
     resolver: zodResolver(SigninValidation),
     defaultValues: {
@@ -29,28 +33,38 @@ const SigninForm = () => {
     },
   });
 
+  // 定义handleSignin方法
   const handleSignin = async (user: z.infer<typeof SigninValidation>) => {
+    // 调用signInAccount方法进行登录
     const session = await signInAccount(user);
 
+    // 如果登录失败
     if (!session) {
+      // 弹出登录失败的提示
       toast({ title: "Login failed. Please try again." });
       
       return;
     }
 
+    // 调用checkAuthUser方法检查用户是否登录成功
     const isLoggedIn = await checkAuthUser();
 
+    // 如果登录成功
     if (isLoggedIn) {
+      // 重置表单
       form.reset();
 
+      // 跳转到首页
       navigate("/");
     } else {
+      // 弹出登录失败的提示
       toast({ title: "Login failed. Please try again.", });
       
       return;
     }
   };
 
+  // 返回登录表单
   return (
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
@@ -117,4 +131,5 @@ const SigninForm = () => {
   );
 };
 
+// 导出SigninForm组件
 export default SigninForm;

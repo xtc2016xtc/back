@@ -24,10 +24,15 @@ import { Button } from "@/components/ui/button";
 import ProfileUploader from "@/components/shared/ProfileUploader";
 
 const UpdateProfile = () => {
+  // 使用useToast获取toast实例
   const { toast } = useToast();
+  // 使用useNavigate获取导航实例
   const navigate = useNavigate();
+  // 使用useParams获取路由参数
   const { id } = useParams();
+  // 使用useUserContext获取用户上下文
   const { user, setUser } = useUserContext();
+  // 使用useForm获取表单实例
   const form = useForm<z.infer<typeof ProfileValidation>>({
     resolver: zodResolver(ProfileValidation),
     defaultValues: {
@@ -40,10 +45,13 @@ const UpdateProfile = () => {
   });
 
   // Queries
+  // 使用useGetUserById获取当前用户信息
   const { data: currentUser } = useGetUserById(id || "");
+  // 使用useUpdateUser更新用户信息
   const { mutateAsync: updateUser, isLoading: isLoadingUpdate } =
     useUpdateUser();
 
+  // 如果当前用户不存在，则返回加载器
   if (!currentUser)
     return (
       <div className="flex-center w-full h-full">
@@ -52,7 +60,9 @@ const UpdateProfile = () => {
     );
 
   // Handler
+  // 处理更新用户信息
   const handleUpdate = async (value: z.infer<typeof ProfileValidation>) => {
+    // 更新用户信息
     const updatedUser = await updateUser({
       userId: currentUser.$id,
       name: value.name,
@@ -62,18 +72,21 @@ const UpdateProfile = () => {
       imageId: currentUser.imageId,
     });
 
+    // 如果更新失败，则显示错误提示
     if (!updatedUser) {
       toast({
         title: `Update user failed. Please try again.`,
       });
     }
 
+    // 更新用户上下文
     setUser({
       ...user,
       name: updatedUser?.name,
       bio: updatedUser?.bio,
       imageUrl: updatedUser?.imageUrl,
     });
+    // 导航到用户个人主页
     return navigate(`/profile/${id}`);
   };
 

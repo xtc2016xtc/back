@@ -15,15 +15,21 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Loader from "../shared/Loader";
 
+// 定义表单属性类型
 type PostFormProps = {
   post?: Models.Document;
   action: "Create" | "Update";
 };
 
+// 定义PostForm组件
 const PostForm = ({ post, action }: PostFormProps) => {
+  // 使用useNavigate钩子获取导航功能
   const navigate = useNavigate();
+  // 使用useToast钩子获取toast功能
   const { toast } = useToast();
+  // 使用useUserContext钩子获取用户信息
   const { user } = useUserContext();
+  // 使用useForm钩子获取表单功能
   const form = useForm<z.infer<typeof PostValidation>>({
     resolver: zodResolver(PostValidation),
     defaultValues: {
@@ -34,15 +40,15 @@ const PostForm = ({ post, action }: PostFormProps) => {
     },
   });
 
-  // Query
+  // 使用useCreatePost和useUpdatePost钩子获取创建和更新帖子的功能
   const { mutateAsync: createPost, isLoading: isLoadingCreate } =
     useCreatePost();
   const { mutateAsync: updatePost, isLoading: isLoadingUpdate } =
     useUpdatePost();
 
-  // Handler
+  // 定义表单提交处理函数
   const handleSubmit = async (value: z.infer<typeof PostValidation>) => {
-    // ACTION = UPDATE
+    // 如果是更新帖子
     if (post && action === "Update") {
       const updatedPost = await updatePost({
         ...value,
@@ -59,7 +65,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
       return navigate(`/posts/${post.$id}`);
     }
 
-    // ACTION = CREATE
+    // 如果是创建帖子
     const newPost = await createPost({
       ...value,
       userId: user.id,

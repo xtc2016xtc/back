@@ -2,18 +2,26 @@ import { Models } from "appwrite";
 import { Link } from "react-router-dom";
 
 
+// 导入工具函数
 import { multiFormatDateString } from "@/lib/utils";
+// 导入用户上下文
 import { useUserContext } from "@/context/AuthContext";
+// 导入组件
 import PostStats from "./PostStats";
+// 导入图标
 import { defaultAvatarIcon, editIcon } from "@/utils";
 
+// 定义PostCard组件的props类型
 type PostCardProps = {
   post: Models.Document;
 };
 
+// 定义PostCard组件
 const PostCard = ({ post }: PostCardProps) => {
+  // 获取用户上下文
   const { user } = useUserContext();
 
+  // 如果没有creator，则返回
   if (!post.creator) return;
 
   return (

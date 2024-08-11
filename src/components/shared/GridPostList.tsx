@@ -5,17 +5,20 @@ import { useUserContext } from "@/context/AuthContext";
 import PostStats from "./PostStats";
 import { defaultAvatarIcon } from "@/utils";
 
+// 定义GridPostList组件的props类型
 type GridPostListProps = {
   posts: Models.Document[];
   showUser?: boolean;
   showStats?: boolean;
 };
 
+// 定义GridPostList组件
 const GridPostList = ({
   posts,
   showUser = true,
   showStats = true,
 }: GridPostListProps) => {
+  // 从AuthContext中获取用户信息
   const { user } = useUserContext();
 
   return (

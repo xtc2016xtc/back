@@ -1,6 +1,7 @@
 import PostForm from "@/components/forms/PostForm";
 import { addpostIcon } from "@/utils";
 
+// 创建一个名为CreatePost的函数组件
 const CreatePost = () => {
   return (
     <div className="flex flex-1">

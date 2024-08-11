@@ -10,20 +10,28 @@ type FileUploaderProps = {
   mediaUrl: string;
 };
 
+// 文件上传组件
 const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
+  // 文件状态
   const [file, setFile] = useState<File[]>([]);
+  // 文件URL状态
   const [fileUrl, setFileUrl] = useState<string>(mediaUrl);
 
+  // 文件拖拽事件
   const onDrop = useCallback(
     (acceptedFiles: FileWithPath[]) => {
+      // 设置文件状态
       setFile(acceptedFiles);
+      // 调用fieldChange函数，将文件传递给父组件
       fieldChange(acceptedFiles);
+      // 将文件转换为URL
       setFileUrl(convertFileToUrl(acceptedFiles[0]));
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [file]
   );
 
+  // 获取拖拽区域和输入框的属性
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: {
