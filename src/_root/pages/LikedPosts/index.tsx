@@ -25,7 +25,7 @@ const LikedPosts = () => {
         <p className="text-light-4">No liked posts</p>
       )}
 
-      // 否则，返回一个GridPostList组件，显示当前用户喜欢的帖子
+      
       <GridPostList posts={currentUser.liked} showStats={false} />
     </>
   );
