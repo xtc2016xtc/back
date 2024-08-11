@@ -1,24 +1,43 @@
-import { INewPost, INewUser, IUpdatePost, IUpdateUser } from "@/types";
 import {
   useQuery,
   useMutation,
   useQueryClient,
   useInfiniteQuery,
 } from "@tanstack/react-query";
-import { createUserAccount,createPost,updatePost,signInAccount, signOutAccount, getRecentPosts, likePost, savePost, deleteSavedPost,getCurrentUser, getPostById, deletePost, getUserPosts, getInfinitePosts, searchPosts, getUserById, getUsers, updateUser } from "../appwrite/api";
-import { QUERY_KEYS } from "./queryKeys";
 
-// 打印useQuery, useMutation, useQueryClient, useInfiniteQuery
-console.log(useQuery, useMutation, useQueryClient, useInfiniteQuery);
+import { QUERY_KEYS } from "@/lib/react-query/queryKeys";
+import {
+  createUserAccount,
+  signInAccount,
+  getCurrentUser,
+  signOutAccount,
+  getUsers,
+  createPost,
+  getPostById,
+  updatePost,
+  getUserPosts,
+  deletePost,
+  likePost,
+  getUserById,
+  updateUser,
+  getRecentPosts,
+  getInfinitePosts,
+  searchPosts,
+  savePost,
+  deleteSavedPost,
+} from "@/lib/appwrite/api";
+import { INewPost, INewUser, IUpdatePost, IUpdateUser } from "@/types";
 
-// 创建用户账户
+// ============================================================
+// AUTH QUERIES
+// ============================================================
+
 export const useCreateUserAccount = () => {
   return useMutation({
     mutationFn: (user: INewUser) => createUserAccount(user),
   });
 };
 
-// 用户登录
 export const useSignInAccount = () => {
   return useMutation({
     mutationFn: (user: { email: string; password: string }) =>
@@ -26,14 +45,48 @@ export const useSignInAccount = () => {
   });
 };
 
-// 用户登出
 export const useSignOutAccount = () => {
   return useMutation({
     mutationFn: signOutAccount,
   });
 };
 
-// 创建帖子
+// ============================================================
+// POST QUERIES
+// ============================================================
+
+export const useGetPosts = () => {
+  return useInfiniteQuery({
+    queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
+    queryFn: getInfinitePosts as any,
+    getNextPageParam: (lastPage: any) => {
+      // If there's no data, there are no more pages.
+      if (lastPage && lastPage.documents.length === 0) {
+        return null;
+      }
+
+      // Use the $id of the last document as the cursor.
+      const lastId = lastPage.documents[lastPage.documents.length - 1].$id;
+      return lastId;
+    },
+  });
+};
+
+export const useSearchPosts = (searchTerm: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.SEARCH_POSTS, searchTerm],
+    queryFn: () => searchPosts(searchTerm),
+    enabled: !!searchTerm,
+  });
+};
+
+export const useGetRecentPosts = () => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
+    queryFn: getRecentPosts,
+  });
+};
+
 export const useCreatePost = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -46,7 +99,22 @@ export const useCreatePost = () => {
   });
 };
 
-// 更新帖子
+export const useGetPostById = (postId?: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_POST_BY_ID, postId],
+    queryFn: () => getPostById(postId),
+    enabled: !!postId,
+  });
+};
+
+export const useGetUserPosts = (userId?: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_USER_POSTS, userId],
+    queryFn: () => getUserPosts(userId),
+    enabled: !!userId,
+  });
+};
+
 export const useUpdatePost = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -59,15 +127,19 @@ export const useUpdatePost = () => {
   });
 };
 
-// 获取最新帖子
-export const useGetRecentPosts = () => {
-  return useQuery({
-    queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
-    queryFn: getRecentPosts,
+export const useDeletePost = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ postId, imageId }: { postId?: string; imageId: string }) =>
+      deletePost(postId, imageId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
+      });
+    },
   });
 };
 
-// 点赞帖子
 export const useLikePost = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -95,7 +167,6 @@ export const useLikePost = () => {
   });
 };
 
-// 收藏帖子
 export const useSavePost = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -115,7 +186,6 @@ export const useSavePost = () => {
   });
 };
 
-// 删除收藏的帖子
 export const useDeleteSavedPost = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -134,7 +204,10 @@ export const useDeleteSavedPost = () => {
   });
 };
 
-// 获取当前用户
+// ============================================================
+// USER QUERIES
+// ============================================================
+
 export const useGetCurrentUser = () => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_CURRENT_USER],
@@ -142,84 +215,18 @@ export const useGetCurrentUser = () => {
   });
 };
 
-// 根据id获取帖子
-export const useGetPostById = (postId?: string) => {
-  return useQuery({
-    queryKey: [QUERY_KEYS.GET_POST_BY_ID, postId],
-    queryFn: () => getPostById(postId),
-    enabled: !!postId,
-  });
-};
-
-// 删除帖子
-export const useDeletePost = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: ({ postId, imageId }: { postId?: string; imageId: string }) =>
-      deletePost(postId, imageId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
-      });
-    },
-  });
-};
-
-// 获取用户帖子
-export const useGetUserPosts = (userId?: string) => {
-  return useQuery({
-    queryKey: [QUERY_KEYS.GET_USER_POSTS, userId],
-    queryFn: () => getUserPosts(userId),
-    enabled: !!userId,
-  });
-};
-
-// 获取帖子
-export const useGetPosts = () => {
-  return useInfiniteQuery({
-    queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    queryFn: getInfinitePosts as any,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    getNextPageParam: (lastPage: any) => {
-      // 如果没有数据，就没有更多页面。
-      if (lastPage && lastPage.documents.length === 0) {
-        return null;
-      }
-
-      // 使用最后一个文档的$id作为游标。
-      const lastId = lastPage.documents[lastPage.documents.length - 1].$id;
-      return lastId;
-    },
-  });
-};
-
-// 搜索帖子
-export const useSearchPosts = (searchTerm: string) => {
-  return useQuery({
-    queryKey: [QUERY_KEYS.SEARCH_POSTS, searchTerm],
-    queryFn: () => searchPosts(searchTerm),
-    enabled: !!searchTerm,
-  });
-};
-
-// 导出一个函数useGetUserById，用于根据用户ID获取用户信息
-export const useGetUserById = (userId: string) => {
-  // 使用useQuery函数，传入查询键、查询函数和是否启用查询
-  return useQuery({
-    // 查询键为QUERY_KEYS.GET_USER_BY_ID和用户ID
-    queryKey: [QUERY_KEYS.GET_USER_BY_ID, userId],
-    // 查询函数为getUserById，传入用户ID
-    queryFn: () => getUserById(userId),
-    // 如果用户ID存在，则启用查询
-    enabled: !!userId,
-  });
-};
-
 export const useGetUsers = (limit?: number) => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_USERS],
     queryFn: () => getUsers(limit),
+  });
+};
+
+export const useGetUserById = (userId: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_USER_BY_ID, userId],
+    queryFn: () => getUserById(userId),
+    enabled: !!userId,
   });
 };
 
