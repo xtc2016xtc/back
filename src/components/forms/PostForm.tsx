@@ -8,11 +8,12 @@ import { useToast } from "@/components/ui/use-toast";
 import { useUserContext } from "@/context/AuthContext";
 
 import { useCreatePost, useUpdatePost } from "@/lib/react-query/queries";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
-import { Textarea } from "../ui/textarea";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import Loader from "../shared/Loader";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+
+import Loader from "@/components/shared/Loader";
 // import FileUploader from "../shared/FileUploader";
 import FileUploader from '@/components/shared/FileUploader'
 

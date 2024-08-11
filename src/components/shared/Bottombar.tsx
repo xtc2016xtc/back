@@ -25,7 +25,7 @@ const Bottombar = () => {
                 key={link.label}
                 className={`${isActive && "bg-primary-500 rounded-[10px]"
                   } flex-center flex-col gap-1 p2 transition`}>
-                  // 返回一个img元素，类名为invert-white
+                    
                   <img
                     src={link.imgURL}
                     alt={link.label}
@@ -33,7 +33,7 @@ const Bottombar = () => {
                     height={16}
                     className={`${isActive && "invert-white"}`}
                   />
-                 // 返回一个p元素，类名为tiny-medium text-light-2
+                
                  <p className="tiny-medium text-light-2">{link.label}</p>
               </Link>
             );
