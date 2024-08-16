@@ -34,7 +34,7 @@ const SigninForm = () => {
     },
   });
 
-  // 定义handleSignin方法
+  // 处理登录表单的提交事件
   const handleSignin = async (user: z.infer<typeof SigninValidation>) => {
     // 调用signInAccount方法进行登录
     const session = await signInAccount(user);
