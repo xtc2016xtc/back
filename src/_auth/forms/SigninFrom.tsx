@@ -72,10 +72,10 @@ const SigninForm = () => {
         <img src={logoImg} alt="logo" />
 
         <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
-          Log in to your account
+          登录你的账户
         </h2>
         <p className="text-light-3 small-medium md:base-regular mt-2">
-          Welcome back! Please enter your details.
+         欢迎你，请登录你的账户以继续使用我们的服务。
         </p>
         <form
           onSubmit={form.handleSubmit(handleSignin)}
