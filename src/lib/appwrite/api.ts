@@ -12,7 +12,7 @@ export async function createUserAccount(user:INewUser){
       user.password,
       user.name
     )
-    if(!newAccount) throw new Error("Error creating account")
+    if(!newAccount) throw new Error("创建账户错误")
 
       // 获取头像URL
       const avatarUrl = avatars.getInitials(user.name)
