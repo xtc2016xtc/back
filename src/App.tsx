@@ -1,4 +1,3 @@
-// import { Navbar } from "./components";
 import { Routes, Route } from "react-router-dom";
 import SigninFrom from './_auth/forms/SigninFrom';
 import SignupFrom from './_auth/forms/SignupFrom';

@@ -15,7 +15,6 @@ import { Button } from "@/components/ui/button";
 
 import Loader from "@/components/shared/Loader";
 import FileUploader from "../shared/FileUploader";
-// import FileUploader from '@/components/shared/FileUploader'
 
 // 定义表单属性类型
 type PostFormProps = {
