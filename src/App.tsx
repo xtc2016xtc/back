@@ -12,13 +12,13 @@ const App = () => {
     <>
       <main className="flex h-screen">
         <Routes>
-          {/* public routes */}
+          
           <Route element={<AuthLayout />}>
             <Route path="/sign-in" element={<SigninFrom />} />
             <Route path="/sign-up" element={<SignupFrom />} />
           </Route>
 
-          {/* private routes */}
+          
           <Route element={<RootLayout />}>
               <Route index element={<Home />} />
               <Route path="/explore" element={<Explore />} />
